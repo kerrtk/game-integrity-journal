@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/* ============================================================
+   GAME INTEGRITY JOURNAL — design tokens
+   Ink #0B0F14 / Panel #131A24 / Crimson #C41E3A
+   Bone #EDEAE3 / Steel #7C8AA0 / Hairline #242D39
+   Display: Barlow Condensed | Body: PT Serif | Utility: JetBrains Mono
+   ============================================================ */
+
+:root {
+  --radius: 2px;
+
+  --ink: #0b0f14;
+  --panel: #131a24;
+  --panel-2: #0f141c;
+  --crimson: #c41e3a;
+  --crimson-dim: #7a1424;
+  --bone: #edeae3;
+  --ash: #dcd8cf;
+  --steel: #7c8aa0;
+  --hair: #242d39;
+
+  --background: var(--ink);
+  --foreground: var(--bone);
+  --card: var(--panel);
+  --card-foreground: var(--bone);
+  --popover: var(--panel);
+  --popover-foreground: var(--bone);
+  --primary: var(--crimson);
+  --primary-foreground: var(--bone);
+  --secondary: var(--panel-2);
+  --secondary-foreground: var(--bone);
+  --muted: var(--panel);
+  --muted-foreground: var(--steel);
+  --accent: var(--panel-2);
+  --accent-foreground: var(--bone);
+  --destructive: var(--crimson);
+  --destructive-foreground: var(--bone);
+  --border: var(--hair);
+  --input: var(--hair);
+  --ring: var(--crimson);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 1px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --color-ink: var(--ink);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-crimson: var(--crimson);
+  --color-crimson-dim: var(--crimson-dim);
+  --color-bone: var(--bone);
+  --color-ash: var(--ash);
+  --color-steel: var(--steel);
+  --color-hair: var(--hair);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-barlow), ui-sans-serif, sans-serif;
+  --font-body: var(--font-pt-serif), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    line-height: 1.65;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-extrabold uppercase leading-none tracking-wide;
+  }
+  a {
+    @apply text-primary;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@layer utilities {
+  .mono {
+    @apply font-mono tracking-widest uppercase;
+  }
+
+  .prose-article {
+    @apply max-w-none text-lg;
+  }
+  .prose-article p {
+    color: var(--color-ash);
+    @apply my-[22px];
+  }
+  .prose-article h2 {
+    @apply mt-12 mb-4 text-2xl text-bone;
+  }
+  .prose-article h3 {
+    @apply mt-8 mb-3 text-xl text-bone;
+  }
+  .prose-article a {
+    @apply text-crimson underline underline-offset-4;
+  }
+  .prose-article ul {
+    @apply my-5 list-disc pl-6;
+    color: var(--color-ash);
+  }
+  .prose-article ol {
+    @apply my-5 list-decimal pl-6;
+    color: var(--color-ash);
+  }
+  .prose-article img {
+    @apply rounded-sm;
+  }
+}
