@@ -1,11 +1,23 @@
 import type { Metadata } from "next"
-import { Barlow_Condensed, JetBrains_Mono, PT_Serif } from "next/font/google"
+import { Barlow_Condensed, Fraunces, JetBrains_Mono, PT_Serif } from "next/font/google"
 
 import "./globals.css"
 import { Footer } from "@/components/footer"
 import { Header } from "@/components/header"
+import { SmoothScroll } from "@/components/providers/smooth-scroll"
+import { Cursor } from "@/components/fx/cursor"
+import { ScrollProgress } from "@/components/fx/scroll-progress"
 import { organizationJsonLd, SITE_URL } from "@/lib/json-ld"
 
+/* Cinematic serif for editorial display moments */
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+})
+/* Case-file condensed display (kicker / labels / bold headlines) */
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["600", "700", "800"],
@@ -27,19 +39,19 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 const description =
-  "Game Integrity Journal investigates officiating failures in professional sports and holds leagues accountable. Home of Unwhistled: How the WNBA Failed Caitlin Clark."
+  "The world's first platform dedicated to accountability, transparency, education and integrity in sports officiating. Home of Unwhistled: How the WNBA Failed Caitlin Clark."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Game Integrity Journal — Officiating, Accountability, Truth",
+    default: "Game Integrity Journal — Every Game Deserves Fair Officiating",
     template: "%s — Game Integrity Journal",
   },
   description,
   openGraph: {
     type: "website",
     siteName: "Game Integrity Journal",
-    title: "Game Integrity Journal — Officiating, Accountability, Truth",
+    title: "Game Integrity Journal — Every Game Deserves Fair Officiating",
     description,
     images: [{ url: "/media/unwhistled-banner.png", width: 2048, height: 1152 }],
   },
@@ -53,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${barlowCondensed.variable} ${ptSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${fraunces.variable} ${barlowCondensed.variable} ${ptSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body className="font-body antialiased">
         <script
@@ -62,13 +74,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-crimson focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-bone"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-crimson focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-bone"
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <Cursor />
+        <ScrollProgress />
+        <SmoothScroll>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   )
