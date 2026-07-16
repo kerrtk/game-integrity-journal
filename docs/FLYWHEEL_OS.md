@@ -130,10 +130,13 @@ cron) + a `runner` (`agent` = Claude, `zapier`/`mcp` = connected tools,
 The engine ships with safe, in-memory defaults so it runs with zero
 external services. Swap these interfaces for real backends:
 
-- **Capture providers** (`lib/flywheel/capture/providers.ts`) → Brevo /
-  MailerLite / CRM adapters implementing `deliver()`. The MCP connectors
-  available to this repo (Brevo, MailerLite, Zapier) are the natural
-  backends.
+- **Capture providers** (`lib/flywheel/capture/providers.ts`) → CRM/ESP
+  adapters implementing `deliver()`. A production **Brevo** adapter ships
+  in `lib/flywheel/capture/brevo.ts`: it's registered automatically when
+  `BREVO_API_KEY` is set (see `.env.example`) and syncs each lead as a
+  Brevo contact via the REST API. Without the key, capture falls back to
+  the console provider, so preview deploys never break signups. Add
+  MailerLite / HubSpot / etc. the same way — one class, one `deliver()`.
 - **Event sinks** (`lib/flywheel/events/sinks.ts`) → a durable warehouse
   or product-analytics vendor implementing `emit()`.
 - **Nurture engine** (`lib/flywheel/nurture/engine.ts`) → back `enroll` /

@@ -27,6 +27,7 @@ import { automationSchema, type Automation, type AutomationInput } from "./autom
 import { EventBus } from "./events/bus"
 import { consoleSink, MemorySink } from "./events/sinks"
 import { MemoryProvider, ProviderRegistry, consoleProvider } from "./capture/providers"
+import { BrevoProvider } from "./capture/brevo"
 import { NurtureEngine } from "./nurture/engine"
 import { CapturePipeline } from "./capture/pipeline"
 
@@ -68,6 +69,10 @@ export class FlywheelOS {
   constructor() {
     this.bus.use(consoleSink).use(this.events)
     this.providers.use(consoleProvider).use(this.leads)
+    // Activate the real ESP only when its key is configured. Forms set to
+    // "brevo" fall back to the console provider until then (see pipeline),
+    // so signups never break on a preview deploy without secrets.
+    if (process.env.BREVO_API_KEY) this.providers.use(new BrevoProvider())
     this.nurture = new NurtureEngine(this.sequences, this.bus)
     this.capture = new CapturePipeline(this.captureForms, this.providers, this.nurture, this.bus)
   }

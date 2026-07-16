@@ -11,5 +11,5 @@ export const brand: Brand = {
   accent: "#d31f3c",
   mission:
     "The world's first platform dedicated to accountability, transparency, education, and integrity in sports officiating.",
-  defaultCaptureProvider: "console",
+  defaultCaptureProvider: "brevo",
 }

@@ -13,7 +13,7 @@ export const captureForms: CaptureForm[] = [
     name: "Newsroom Signup (footer + inline)",
     incentive: "Get every case file the moment it publishes.",
     enrollSequence: "welcome-newsroom",
-    provider: "console",
+    provider: "brevo",
     tags: ["newsroom", "subscriber"],
   },
   {
@@ -22,7 +22,7 @@ export const captureForms: CaptureForm[] = [
     name: "Unwhistled Launch Waitlist",
     incentive: "Be first to pre-order Unwhistled and get a launch-day discount.",
     enrollSequence: "book-launch",
-    provider: "console",
+    provider: "brevo",
     tags: ["newsroom", "book-waitlist", "buyer-intent"],
   },
 ]
