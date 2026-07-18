@@ -139,8 +139,17 @@ external services. Swap these interfaces for real backends:
   MailerLite / HubSpot / etc. the same way — one class, one `deliver()`.
 - **Event sinks** (`lib/flywheel/events/sinks.ts`) → a durable warehouse
   or product-analytics vendor implementing `emit()`.
-- **Nurture engine** (`lib/flywheel/nurture/engine.ts`) → back `enroll` /
-  `due` / `advance` with a queue + a scheduled route.
+- **Nurture engine** (`lib/flywheel/nurture/engine.ts`) → delivers each
+  step through a pluggable `MessageSender`. A production **Brevo** sender
+  ships in `lib/flywheel/nurture/brevo-sender.ts` (transactional email +
+  SMS), activated when `BREVO_API_KEY` + `BREVO_SENDER_EMAIL` are set;
+  otherwise steps are logged by the console sender. Steps with an
+  `offerSlug` get that offer attached as a CTA link automatically. The
+  worker endpoint **`GET /api/nurture/tick`** (scheduled every 15 min via
+  `vercel.json`, optionally guarded by `CRON_SECRET`) processes all due
+  steps. Enrollments are in-memory per instance — back `enroll` / `due` /
+  `advance` with durable storage (a DB/queue) before relying on it across
+  a multi-instance deployment.
 - **Automation runners** → dispatch `agent` specs to Claude, `zapier` /
   `mcp` specs to those connectors.
 

@@ -29,6 +29,8 @@ import { consoleSink, MemorySink } from "./events/sinks"
 import { MemoryProvider, ProviderRegistry, consoleProvider } from "./capture/providers"
 import { BrevoProvider } from "./capture/brevo"
 import { NurtureEngine } from "./nurture/engine"
+import { consoleSender } from "./nurture/sender"
+import { BrevoSender } from "./nurture/brevo-sender"
 import { CapturePipeline } from "./capture/pipeline"
 
 export interface BrandConfig {
@@ -73,7 +75,11 @@ export class FlywheelOS {
     // "brevo" fall back to the console provider until then (see pipeline),
     // so signups never break on a preview deploy without secrets.
     if (process.env.BREVO_API_KEY) this.providers.use(new BrevoProvider())
-    this.nurture = new NurtureEngine(this.sequences, this.bus)
+    // Nurture steps are actually delivered through Brevo when its key is
+    // set; otherwise they're logged by the console sender. Offers are
+    // passed so each step can attach the connected offer as a CTA link.
+    const sender = process.env.BREVO_API_KEY ? new BrevoSender() : consoleSender
+    this.nurture = new NurtureEngine(this.sequences, this.bus, { sender, offers: this.offers })
     this.capture = new CapturePipeline(this.captureForms, this.providers, this.nurture, this.bus)
   }
 
