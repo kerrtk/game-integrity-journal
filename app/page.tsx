@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Hero } from "@/components/home/hero"
 import { Stats } from "@/components/home/stats"
 import { Pillars } from "@/components/home/pillars"
+import { Coverage } from "@/components/home/coverage"
 import { Timeline } from "@/components/home/timeline"
 import { BookTeaser } from "@/components/home/book-teaser"
 import { JournalRail } from "@/components/home/journal-rail"
@@ -25,6 +26,7 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <Pillars />
+      <Coverage />
       <Timeline />
       <BookTeaser />
       <JournalRail entries={entries} />

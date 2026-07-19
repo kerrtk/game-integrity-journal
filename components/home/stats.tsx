@@ -8,10 +8,10 @@ import { Reveal } from "@/components/fx/reveal"
  * NOTE: placeholder figures — swap for GIJ's verified stats.
  */
 const stats = [
-  { value: 1, prefix: "#", label: "Platform for officiating integrity", sub: "First of its kind" },
+  { value: 1, prefix: "#", label: "Independent sports-integrity platform", sub: "First of its kind" },
   { value: 100, suffix: "%", label: "Independently sourced", sub: "No league funding" },
-  { value: 4, label: "Investigations filed", sub: "And counting" },
-  { value: 0, label: "Referees named", sub: "The pattern, not the person" },
+  { value: 5, label: "Areas of investigation", sub: "Across sport" },
+  { value: 0, label: "Individuals named", sub: "The pattern, not the person" },
 ]
 
 export function Stats() {

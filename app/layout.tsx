@@ -39,7 +39,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 const description =
-  "The world's first platform dedicated to accountability, transparency, education and integrity in sports officiating. Home of Unwhistled: How the WNBA Failed Caitlin Clark."
+  "An independent platform investigating fairness, accountability, and transparency across sport. Home of Unwhistled: How the WNBA Failed Caitlin Clark."
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

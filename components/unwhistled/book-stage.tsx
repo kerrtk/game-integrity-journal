@@ -23,10 +23,10 @@ function BookFallback() {
           style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--gold) 38%, transparent), transparent 65%)" }}
         />
         <Image
-          src="/media/unwhistled-hero.png"
-          alt="Unwhistled book cover under a spotlight"
-          width={928}
-          height={1152}
+          src="/media/unwhistled-cover.png"
+          alt="Unwhistled: How the WNBA Failed Caitlin Clark — book cover"
+          width={1200}
+          height={1800}
           className="w-full rounded-md"
           priority
         />

@@ -30,10 +30,10 @@ export function BookTeaser() {
             className="overflow-hidden rounded-md glow-gold"
           >
             <Image
-              src="/media/unwhistled-hero.png"
-              alt="Unwhistled book cover under a spotlight"
-              width={928}
-              height={1152}
+              src="/media/unwhistled-cover.png"
+              alt="Unwhistled: How the WNBA Failed Caitlin Clark — book cover"
+              width={1200}
+              height={1800}
               className="w-full"
             />
           </motion.div>

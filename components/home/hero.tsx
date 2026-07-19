@@ -46,7 +46,7 @@ export function Hero() {
           className="mono mb-8 flex items-center gap-3 text-[11px] text-gold-soft"
         >
           <span className="inline-block h-px w-10 bg-gold/70" />
-          The world&apos;s first sports-officiating integrity platform
+          Independent investigations · Integrity in sport
         </motion.p>
 
         <motion.h1
@@ -54,21 +54,21 @@ export function Hero() {
           variants={stagger(0.12, 0.15)}
           initial="hidden"
           animate="show"
-          className="max-w-[16ch] font-display text-[clamp(3rem,9vw,7.5rem)] font-extrabold uppercase leading-[0.9] tracking-tight"
+          className="max-w-[15ch] font-display text-[clamp(3rem,9vw,7.5rem)] font-extrabold uppercase leading-[0.9] tracking-tight"
         >
           <span className="block overflow-hidden">
             <motion.span variants={line} className="block text-gradient-bone">
-              Every game
+              The game is
             </motion.span>
           </span>
           <span className="block overflow-hidden">
             <motion.span variants={line} className="block text-gradient-bone">
-              deserves fair
+              only as fair as
             </motion.span>
           </span>
           <span className="block overflow-hidden">
             <motion.span variants={line} className="block text-gradient-gold">
-              officiating.
+              the record we keep.
             </motion.span>
           </span>
         </motion.h1>
@@ -80,8 +80,9 @@ export function Hero() {
           transition={{ duration: 1, ease: EASE_OUT_EXPO, delay: 0.7 }}
           className="mt-8 max-w-[52ch] text-lg leading-relaxed text-ash sm:text-xl"
         >
-          Accountability, transparency, education and integrity in sports officiating —
-          documented, sourced, and impossible to ignore.
+          Game Integrity Journal is an independent platform investigating fairness,
+          accountability, and transparency across sport — documented, sourced, and
+          impossible to ignore.
         </motion.p>
 
         <motion.div
