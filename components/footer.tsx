@@ -8,6 +8,8 @@ const footerNav = [
   { href: "/support", label: "Support" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
+  { href: "/standards", label: "Standards" },
+  { href: "/tips", label: "Tips" },
   { href: "/contact", label: "Contact" },
 ]
 
