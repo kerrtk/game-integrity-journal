@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 export const navItems = [
   { href: "/journal", label: "Journal" },
   { href: "/unwhistled", label: "Unwhistled" },
+  { href: "/watch", label: "Watch" },
   { href: "/membership", label: "Membership" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
