@@ -9,9 +9,9 @@ import { MobileNav } from "@/components/mobile-nav"
 import { cn } from "@/lib/utils"
 
 export const navItems = [
-  { href: "/", label: "Home" },
   { href: "/journal", label: "Journal" },
   { href: "/unwhistled", label: "Unwhistled" },
+  { href: "/membership", label: "Membership" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
 ]

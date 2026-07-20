@@ -3,8 +3,11 @@ import Link from "next/link"
 const footerNav = [
   { href: "/journal", label: "Journal" },
   { href: "/unwhistled", label: "Unwhistled" },
+  { href: "/membership", label: "Membership" },
+  { href: "/support", label: "Support" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ]
 
 export function Footer() {
