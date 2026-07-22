@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { Intro } from "@/components/home/intro"
 import { Hero } from "@/components/home/hero"
 import { Stats } from "@/components/home/stats"
 import { Pillars } from "@/components/home/pillars"
@@ -23,6 +24,7 @@ export default function HomePage() {
 
   return (
     <>
+      <Intro />
       <Hero />
       <Stats />
       <Pillars />
