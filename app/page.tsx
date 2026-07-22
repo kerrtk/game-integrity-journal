@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { Hero } from "@/components/home/hero"
+import { Film } from "@/components/home/film"
 import { Stats } from "@/components/home/stats"
 import { Pillars } from "@/components/home/pillars"
 import { Coverage } from "@/components/home/coverage"
@@ -24,6 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Film />
       <Stats />
       <Pillars />
       <Coverage />
