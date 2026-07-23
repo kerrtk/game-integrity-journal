@@ -34,9 +34,9 @@ export function Header() {
     <>
       {showMasthead && (
         <div className="relative z-40 overflow-hidden bg-crimson px-4 py-1.5 text-center font-mono text-[11px] tracking-[0.18em] text-ink">
-          Unwhistled launches August 1 &mdash;{" "}
+          Unwhistled is out now &mdash;{" "}
           <Link href="/unwhistled" className="font-semibold text-ink underline underline-offset-2">
-            pre-order now
+            get the book
           </Link>
         </div>
       )}

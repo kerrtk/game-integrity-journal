@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Magnetic } from "@/components/fx/magnetic"
 import { Reveal } from "@/components/fx/reveal"
 import { Button } from "@/components/ui/button"
+import { BOOK } from "@/lib/book"
 
 /**
  * Home → Unwhistled bridge. Parallax book cover with a floating glow,
@@ -59,7 +60,9 @@ export function BookTeaser() {
             </Magnetic>
             <Magnetic>
               <Button asChild variant="ghost" size="lg">
-                <Link href="/shop">Pre-order</Link>
+                <a href={BOOK.amazonUrl} target="_blank" rel="noopener noreferrer">
+                  Buy on Amazon
+                </a>
               </Button>
             </Magnetic>
           </Reveal>

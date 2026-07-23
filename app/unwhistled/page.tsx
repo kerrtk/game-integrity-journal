@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { BOOK } from "@/lib/book"
 import { Aurora } from "@/components/fx/aurora"
 import { Reveal } from "@/components/fx/reveal"
 import { Magnetic } from "@/components/fx/magnetic"
@@ -13,15 +14,12 @@ import { Testimonials } from "@/components/unwhistled/testimonials"
 export const metadata: Metadata = {
   title: "Unwhistled: How the WNBA Failed Caitlin Clark",
   description:
-    "The full indictment of WNBA officiating failures. Unwhistled: How the WNBA Failed Caitlin Clark, from Game Integrity Journal. Pre-order now — launches August 1.",
+    "The full indictment of WNBA officiating failures. Unwhistled: How the WNBA Failed Caitlin Clark, from Game Integrity Journal. Out now on Amazon in paperback and Kindle.",
   alternates: { canonical: "/unwhistled" },
   openGraph: {
     images: [{ url: "/media/unwhistled-banner.png", width: 2048, height: 1152 }],
   },
 }
-
-// TODO: replace with the real Amazon product URL at launch.
-const AMAZON_URL = "/shop"
 
 export default function UnwhistledPage() {
   return (
@@ -48,14 +46,16 @@ export default function UnwhistledPage() {
             <Reveal delay={0.1} className="mt-9 flex flex-wrap gap-4">
               <Magnetic>
                 <Button asChild variant="gold" size="lg">
-                  <a href={AMAZON_URL} target={AMAZON_URL.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                  <a href={BOOK.amazonUrl} target="_blank" rel="noopener noreferrer">
                     Buy on Amazon
                   </a>
                 </Button>
               </Magnetic>
               <ReadChapter />
             </Reveal>
-            <p className="mono mt-6 text-[10px] text-steel">Launches August 1 · Paperback + Kindle</p>
+            <p className="mono mt-6 text-[10px] text-steel">
+              Out now · Paperback {BOOK.paperback} · Kindle {BOOK.kindle}
+            </p>
           </div>
 
           <div className="relative">
@@ -132,9 +132,9 @@ export default function UnwhistledPage() {
       <section className="relative px-6 pb-28 pt-4">
         <div className="mx-auto max-w-5xl">
           <Capture
-            heading="Be first to know when it's live."
-            body="Get launch-day access and pre-order details straight to your inbox."
-            buttonLabel="Notify me"
+            heading="Get the next investigation first."
+            body="New reports and the story behind Unwhistled, straight to your inbox."
+            buttonLabel="Subscribe"
           />
         </div>
       </section>

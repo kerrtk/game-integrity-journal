@@ -6,16 +6,16 @@ import { Aurora } from "@/components/fx/aurora"
 import { Reveal } from "@/components/fx/reveal"
 import { Magnetic } from "@/components/fx/magnetic"
 import { Button } from "@/components/ui/button"
+import { BOOK } from "@/lib/book"
 
 export const metadata: Metadata = {
   title: "Shop",
   description:
-    "Pre-order Unwhistled: How the WNBA Failed Caitlin Clark, plus Game Integrity Journal apparel and bundles.",
+    "Buy Unwhistled: How the WNBA Failed Caitlin Clark on Amazon, plus Game Integrity Journal apparel and bundles.",
   alternates: { canonical: "/shop" },
 }
 
-// TODO: replace with the real Amazon product URL at launch.
-const BUY_URL = "#"
+const BUY_URL = BOOK.amazonUrl
 
 const products = [
   {
@@ -51,8 +51,8 @@ export default function ShopPage() {
               Get the <span className="text-gradient-gold">case file.</span>
             </h1>
             <p className="mt-5 max-w-[60ch] text-lg leading-relaxed text-ash">
-              Every purchase funds independent investigations. Checkout opens once fulfillment is
-              connected — pre-order details below.
+              Every purchase funds independent investigations. The book is live on Amazon now;
+              apparel and bundles open here soon.
             </p>
           </Reveal>
         </div>
@@ -85,12 +85,14 @@ export default function ShopPage() {
               How the WNBA Failed Caitlin Clark. The full indictment — every missed call, every
               retroactive correction, laid out so the pattern speaks for itself. Paperback + Kindle.
             </p>
-            <div className="mono mt-6 text-2xl text-bone">Launches August 1</div>
+            <div className="mono mt-6 text-2xl text-bone">
+              Out now · Paperback {BOOK.paperback} · Kindle {BOOK.kindle}
+            </div>
             <div className="mt-6 flex flex-wrap gap-4">
               <Magnetic>
                 <Button asChild variant="gold" size="lg">
-                  <a href={BUY_URL} target={BUY_URL.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                    Pre-order on Amazon
+                  <a href={BUY_URL} target="_blank" rel="noopener noreferrer">
+                    Buy on Amazon
                   </a>
                 </Button>
               </Magnetic>
@@ -98,7 +100,7 @@ export default function ShopPage() {
                 <Link href="/unwhistled">See the book</Link>
               </Button>
             </div>
-            <p className="mono mt-4 text-[10px] text-steel">Amazon link goes live at launch</p>
+            <p className="mono mt-4 text-[10px] text-steel">Paperback &amp; Kindle on Amazon</p>
           </Reveal>
         </div>
       </section>
