@@ -1,12 +1,14 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 
 import { Magnetic } from "@/components/fx/magnetic"
 import { Button } from "@/components/ui/button"
 import { inViewOnce, stagger } from "@/lib/motion"
+import { PAYMENTS, isLive, membershipCheckoutLive } from "@/lib/payments"
 import { cn } from "@/lib/utils"
 
 /**
@@ -113,6 +115,10 @@ export function Pricing() {
       >
         {tiers.map((tier) => {
           const price = annual ? tier.annual : tier.monthly
+          const isPartner = tier.monthly === null
+          const links =
+            tier.id === "supporter" || tier.id === "member" ? PAYMENTS.membership[tier.id] : undefined
+          const checkout = links ? (annual ? links.annual : links.monthly) : undefined
           return (
             <motion.div
               key={tier.id}
@@ -158,9 +164,25 @@ export function Pricing() {
 
               <div className="mt-8">
                 <Magnetic>
-                  <Button asChild variant={tier.featured ? "gold" : "ghost"} className="w-full justify-center">
-                    <a href="/support">{tier.cta}</a>
-                  </Button>
+                  {isPartner ? (
+                    <Button asChild variant="ghost" className="w-full justify-center">
+                      <Link href="/contact">{tier.cta}</Link>
+                    </Button>
+                  ) : isLive(checkout) ? (
+                    <Button asChild variant={tier.featured ? "gold" : "ghost"} className="w-full justify-center">
+                      <a href={checkout} target="_blank" rel="noopener noreferrer">
+                        {tier.cta}
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      variant={tier.featured ? "gold" : "ghost"}
+                      className="w-full justify-center"
+                    >
+                      Coming soon
+                    </Button>
+                  )}
                 </Magnetic>
               </div>
             </motion.div>
@@ -168,7 +190,9 @@ export function Pricing() {
         })}
       </motion.div>
       <p className="mono mt-8 text-center text-[10px] text-steel">
-        Prices shown are placeholders · Checkout opens when membership goes live
+        {membershipCheckoutLive
+          ? "Secure checkout via Stripe · cancel anytime"
+          : "Secure Stripe checkout opens shortly · Official Partner is available now"}
       </p>
     </div>
   )

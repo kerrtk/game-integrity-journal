@@ -7,6 +7,7 @@ import { Magnetic } from "@/components/fx/magnetic"
 import { CountUp } from "@/components/fx/count-up"
 import { Button } from "@/components/ui/button"
 import { FundingProgress } from "@/components/donate/progress"
+import { PAYMENTS, isLive } from "@/lib/payments"
 
 export const metadata: Metadata = {
   title: "Support the Investigation",
@@ -62,11 +63,19 @@ export default function SupportPage() {
               Every dollar funds sourcing, footage review, and the time it takes to get a story right.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {amounts.map((a) => (
-                <Button key={a} asChild variant="ghost">
-                  <Link href="/membership">${a}</Link>
-                </Button>
-              ))}
+              {amounts.map((a) =>
+                isLive(PAYMENTS.donate) ? (
+                  <Button key={a} asChild variant="ghost">
+                    <a href={PAYMENTS.donate} target="_blank" rel="noopener noreferrer">
+                      ${a}
+                    </a>
+                  </Button>
+                ) : (
+                  <Button key={a} disabled variant="ghost">
+                    ${a}
+                  </Button>
+                )
+              )}
               <Magnetic>
                 <Button asChild variant="gold">
                   <Link href="/membership">Give monthly →</Link>
@@ -74,7 +83,9 @@ export default function SupportPage() {
               </Magnetic>
             </div>
             <p className="mono mt-4 text-[10px] text-steel">
-              Secure checkout opens soon · prefer ongoing support? See membership.
+              {isLive(PAYMENTS.donate)
+                ? "Secure one-time checkout via Stripe · prefer ongoing support? See membership."
+                : "Secure Stripe checkout opens shortly · prefer ongoing support? See membership."}
             </p>
           </Reveal>
         </div>
