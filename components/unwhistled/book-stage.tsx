@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import dynamic from "next/dynamic"
-import { useEffect, useState } from "react"
+import { Component, type ReactNode, useEffect, useState } from "react"
 
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion"
 
@@ -13,7 +13,8 @@ const BookScene = dynamic(() => import("@/components/three/book-scene"), {
 })
 
 /** Static, elegant fallback: the book photo (shown while loading, on
- *  reduced-motion, or if WebGL is unavailable). */
+ *  reduced-motion, when WebGL is unavailable, or if the 3D scene errors —
+ *  e.g. inside the Facebook / Instagram in-app browser). */
 function BookFallback() {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
@@ -35,18 +36,55 @@ function BookFallback() {
   )
 }
 
+/** Catches any runtime error from the WebGL scene and shows the cover
+ *  instead of a blank / crashed section. */
+class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    return this.state.failed ? <BookFallback /> : this.props.children
+  }
+}
+
+/** True only when the browser can actually create a WebGL context. Many
+ *  in-app browsers (Facebook, Instagram) and locked-down devices cannot. */
+function webglSupported() {
+  try {
+    const canvas = document.createElement("canvas")
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    )
+  } catch {
+    return false
+  }
+}
+
 export function BookStage() {
   const reduced = usePrefersReducedMotion()
-  const [mounted, setMounted] = useState(false)
+  const [canRender3D, setCanRender3D] = useState(false)
 
-  // Defer 3D until after hydration so first paint stays instant.
-  useEffect(() => setMounted(true), [])
+  // Defer 3D until after hydration (instant first paint) and only when the
+  // browser truly supports WebGL — otherwise the static cover stands in.
+  useEffect(() => {
+    if (webglSupported()) setCanRender3D(true)
+  }, [])
+
+  const show3D = canRender3D && !reduced
 
   return (
     <div className="relative aspect-[4/5] w-full">
-      {reduced || !mounted ? <BookFallback /> : <BookScene />}
+      {show3D ? (
+        <SceneBoundary>
+          <BookScene />
+        </SceneBoundary>
+      ) : (
+        <BookFallback />
+      )}
       <p className="mono absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-steel">
-        {reduced ? "" : "Drag your cursor — the book responds"}
+        {show3D ? "Drag your cursor — the book responds" : ""}
       </p>
     </div>
   )

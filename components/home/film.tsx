@@ -39,9 +39,10 @@ export function Film() {
               <video
                 ref={videoRef}
                 src="/media/intro.mp4"
-                poster="/media/unwhistled-banner.png"
+                poster="/_next/image?url=%2Fmedia%2Funwhistled-banner.png&w=1200&q=75"
                 controls
                 playsInline
+                preload="metadata"
                 className="h-full w-full object-cover"
               />
             ) : (

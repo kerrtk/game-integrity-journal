@@ -45,9 +45,10 @@ export default function WatchPage() {
             {/* eslint-disable-next-line jsx-a11y/media-has-caption -- promo trailer has no dialogue captions to source yet */}
             <video
               src="/media/unwhistled-promo.mp4"
-              poster="/media/unwhistled-banner.png"
+              poster="/_next/image?url=%2Fmedia%2Funwhistled-banner.png&w=1200&q=75"
               controls
               playsInline
+              preload="metadata"
               className="w-full rounded-lg"
             />
           </Reveal>
