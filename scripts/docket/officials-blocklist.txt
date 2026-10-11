@@ -1,0 +1,4 @@
+# Names of game officials that must never appear in the Docket, one per line.
+# The filter already strips "referee <Name>"-style mentions automatically;
+# this list catches names that show up without a role word in front of them.
+# Lines starting with # are ignored.

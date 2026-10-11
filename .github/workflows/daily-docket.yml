@@ -1,0 +1,84 @@
+name: Daily Docket
+
+# Overnight: Grok searches X and the web, the editorial filters run, and the result
+# opens as a pull request. Vercel builds a preview of the PR. Merge = publish.
+
+on:
+  schedule:
+    # 09:30 UTC = 4:30 AM Central during daylight time (3:30 AM in winter).
+    - cron: "30 9 * * *"
+  workflow_dispatch:
+    inputs:
+      mock:
+        description: "Use made-up sample data (no API calls, never publishes)"
+        type: boolean
+        default: false
+      leagues:
+        description: "Comma list like NFL,NBA. Blank = leagues enabled in scripts/docket/leagues.ts"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: daily-docket
+  cancel-in-progress: false
+
+jobs:
+  docket:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test the editorial filters
+        run: node --experimental-strip-types --no-warnings --test scripts/docket/filters.test.ts
+
+      - name: Run the overnight search
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          XAI_MODEL: ${{ vars.XAI_MODEL }}
+          NEXT_PUBLIC_SITE_URL: https://gameintegrityjournal.com
+          MOCK: ${{ inputs.mock }}
+          LEAGUES: ${{ inputs.leagues }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          if [ "${MOCK:-false}" = "true" ]; then ARGS+=(--mock --out content/docket); fi
+          if [ -n "${LEAGUES:-}" ]; then ARGS+=(--leagues "$LEAGUES"); fi
+          node --experimental-strip-types --no-warnings scripts/docket/run.ts "${ARGS[@]}"
+
+      - name: Open the review pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MOCK: ${{ inputs.mock }}
+        run: |
+          set -euo pipefail
+          DATE=$(cat .docket-out/date.txt)
+          COUNT=$(cat .docket-out/count.txt)
+          if [ "$COUNT" = "0" ]; then
+            echo "Nothing cleared the sourcing bar for $DATE. No pull request opened." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          PREFIX="docket"
+          TITLE="Daily Docket · $DATE"
+          if [ "${MOCK:-false}" = "true" ]; then PREFIX="docket-sample"; TITLE="SAMPLE (do not merge) · Daily Docket · $DATE"; fi
+          BRANCH="$PREFIX/$DATE"
+          git config user.name "gij-docket-bot"
+          git config user.email "gij-docket-bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add content/docket/
+          git commit -m "Daily Docket for $DATE (needs review)"
+          git push --force origin "$BRANCH"
+          if gh pr view "$BRANCH" > /dev/null 2>&1; then
+            gh pr edit "$BRANCH" --body-file .docket-out/pr-body.md
+          else
+            gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file .docket-out/pr-body.md
+          fi
+          cat .docket-out/pr-body.md >> "$GITHUB_STEP_SUMMARY"

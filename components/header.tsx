@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 
 export const navItems = [
   { href: "/journal", label: "Journal" },
+  { href: "/docket", label: "Docket" },
   { href: "/unwhistled", label: "Unwhistled" },
   { href: "/watch", label: "Watch" },
   { href: "/membership", label: "Membership" },
