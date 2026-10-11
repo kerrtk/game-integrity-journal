@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-12",
+  "coverageFrom": "2026-10-11",
+  "coverageTo": "2026-10-12",
+  "generatedAt": "2026-10-11T19:15:58.309Z",
+  "model": "sample-fixture",
+  "leagues": [
+    "NFL",
+    "NBA",
+    "NCAAF",
+    "MLB"
+  ],
+  "sample": true,
+  "items": [
+    {
+      "id": "2026-10-12-01",
+      "league": "NFL",
+      "type": "replay-tech",
+      "headline": "Replay review stalls for 7 minutes as booth feed drops in Gulls-Elk game",
+      "whatHappened": "A fourth-quarter catch review stopped for seven minutes when the replay booth lost its broadcast feed. The referee announced the ruling stood without a clear angle. Both coaches were seen asking for an explanation.",
+      "ruleAtIssue": "Replay rules require clear and obvious visual evidence to overturn a ruling on the field.",
+      "leagueResponse": "statement",
+      "leagueResponseNote": "The league said a technical failure affected the review and that it is examining stadium backup feeds.",
+      "sourceStrength": "official",
+      "heat": 3,
+      "sources": [
+        {
+          "url": "https://example.com/league-statement-0001",
+          "label": "League statement (sample)"
+        },
+        {
+          "url": "https://x.com/example/status/1000000000000000001",
+          "label": "Sample beat reporter on X"
+        }
+      ],
+      "status": "verified",
+      "reviewFlags": [
+        "An official's name was removed. Reread the wording."
+      ]
+    },
+    {
+      "id": "2026-10-12-02",
+      "league": "NBA",
+      "type": "officiating",
+      "headline": "Late no-call on a block decides Comets win; review report expected",
+      "whatHappened": "With four seconds left, contact on a drive to the basket drew no whistle and the Comets held on. The ump crew had called the same play a foul in the first half, which fans highlighted in side-by-side clips.",
+      "ruleAtIssue": "Block/charge rules depend on the defender establishing legal guarding position before the offensive player starts the upward shooting motion.",
+      "leagueResponse": "none-yet",
+      "leagueResponseNote": "The league's end-of-game review report for this game is due within 48 hours.",
+      "sourceStrength": "multiple-reporters",
+      "heat": 3,
+      "sources": [
+        {
+          "url": "https://example.com/reporter-b/replay-delay",
+          "label": "Sample Reporter B"
+        },
+        {
+          "url": "https://example.com/l2m-sample",
+          "label": "Sample review report page"
+        }
+      ],
+      "status": "developing",
+      "reviewFlags": [
+        "An official's name was removed. Reread the wording."
+      ]
+    },
+    {
+      "id": "2026-10-12-03",
+      "league": "NCAAF",
+      "type": "officiating",
+      "headline": "Targeting ejection overturned after 12-minute review, then reinstated",
+      "whatHappened": "A targeting call was overturned in the booth, then the conference office ruled the original call should have stood. The sequence left the player on the sideline for the final quarter either way.",
+      "ruleAtIssue": "Targeting requires forcible contact to the head or neck area with an indicator such as launching or leading with the crown of the helmet.",
+      "leagueResponse": "statement",
+      "leagueResponseNote": "The conference acknowledged a procedural error in communication between the booth and the field.",
+      "sourceStrength": "official",
+      "heat": 2,
+      "sources": [
+        {
+          "url": "https://example.com/conference-statement-sample",
+          "label": "Conference statement (sample)"
+        }
+      ],
+      "status": "verified",
+      "reviewFlags": [
+        "None of these links appeared in Grok's search results. Open each one before approving."
+      ]
+    },
+    {
+      "id": "2026-10-12-04",
+      "league": "NBA",
+      "type": "coaching",
+      "headline": "Comets' coach burns final timeout before a review, leaving none for last play",
+      "whatHappened": "The Comets used their last timeout with 40 seconds left, then could not advance the ball after a late defensive stop. Analysts on both broadcasts questioned the clock management.",
+      "ruleAtIssue": "",
+      "leagueResponse": "unknown",
+      "leagueResponseNote": "",
+      "sourceStrength": "multiple-reporters",
+      "heat": 2,
+      "sources": [
+        {
+          "url": "https://example.com/analyst-c/timeouts",
+          "label": "Sample Analyst C"
+        }
+      ],
+      "status": "developing",
+      "reviewFlags": [
+        "None of these links appeared in Grok's search results. Open each one before approving."
+      ]
+    }
+  ],
+  "stats": {
+    "candidates": 7,
+    "kept": 4,
+    "droppedInvalid": 0,
+    "droppedViralOnly": 1,
+    "droppedNoSource": 1,
+    "droppedDuplicate": 1,
+    "droppedOverCap": 0,
+    "redactions": 2
+  }
+}

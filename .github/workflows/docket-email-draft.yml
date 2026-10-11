@@ -1,0 +1,35 @@
+name: Docket email draft
+
+# When a reviewed docket is merged to main, create a Brevo campaign DRAFT.
+# Nothing is sent automatically: open Brevo, check it, click send.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/docket/*.json"
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create Brevo drafts for newly added dockets
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_SENDER_EMAIL: ${{ secrets.BREVO_SENDER_EMAIL }}
+          BREVO_DOCKET_LIST_ID: ${{ vars.BREVO_DOCKET_LIST_ID }}
+          NEXT_PUBLIC_SITE_URL: https://gameintegrityjournal.com
+        run: |
+          set -euo pipefail
+          for f in $(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'content/docket/*.json'); do
+            node --experimental-strip-types --no-warnings scripts/docket/brevo-draft.ts --file "$f"
+          done

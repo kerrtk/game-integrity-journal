@@ -1,0 +1,95 @@
+{
+  "_note": "MADE-UP TEST DATA. Fictional teams, fictional events, example.com links. Used only for --mock runs and preview demos. Never real news.",
+  "citations": [
+    "https://example.com/league-statement-0001",
+    "https://example.com/reporter-a/replay-delay",
+    "https://example.com/reporter-b/replay-delay",
+    "https://example.com/l2m-sample"
+  ],
+  "items": [
+    {
+      "league": "NFL",
+      "type": "replay-tech",
+      "headline": "Replay review stalls for 7 minutes as booth feed drops in Gulls-Elk game",
+      "whatHappened": "A fourth-quarter catch review stopped for seven minutes when the replay booth lost its broadcast feed. Referee Dale Hemming announced the ruling stood without a clear angle. Both coaches were seen asking for an explanation.",
+      "ruleAtIssue": "Replay rules require clear and obvious visual evidence to overturn a ruling on the field.",
+      "leagueResponse": "statement",
+      "leagueResponseNote": "The league said a technical failure affected the review and that it is examining stadium backup feeds.",
+      "sourceStrength": "official",
+      "heat": 3,
+      "sources": [
+        { "url": "https://example.com/league-statement-0001", "label": "League statement (sample)" },
+        { "url": "https://x.com/example/status/1000000000000000001", "label": "Sample beat reporter on X" }
+      ]
+    },
+    {
+      "league": "NFL",
+      "type": "replay-tech",
+      "headline": "Seven-minute replay delay in Gulls vs Elk game after booth feed drops",
+      "whatHappened": "Duplicate of the first item, worded differently. The filter should collapse it.",
+      "sourceStrength": "multiple-reporters",
+      "heat": 2,
+      "sources": [{ "url": "https://example.com/reporter-a/replay-delay", "label": "Sample Reporter A" }]
+    },
+    {
+      "league": "NBA",
+      "type": "officiating",
+      "headline": "Late no-call on a block decides Comets win; review report expected",
+      "whatHappened": "With four seconds left, contact on a drive to the basket drew no whistle and the Comets held on. The ump Tara Voss crew had called the same play a foul in the first half, which fans highlighted in side-by-side clips.",
+      "ruleAtIssue": "Block/charge rules depend on the defender establishing legal guarding position before the offensive player starts the upward shooting motion.",
+      "leagueResponse": "none-yet",
+      "leagueResponseNote": "The league's end-of-game review report for this game is due within 48 hours.",
+      "sourceStrength": "multiple-reporters",
+      "heat": 3,
+      "sources": [
+        { "url": "https://example.com/reporter-b/replay-delay", "label": "Sample Reporter B" },
+        { "url": "https://example.com/l2m-sample", "label": "Sample review report page" }
+      ]
+    },
+    {
+      "league": "NBA",
+      "type": "coaching",
+      "headline": "Comets' coach burns final timeout before a review, leaving none for last play",
+      "whatHappened": "The Comets used their last timeout with 40 seconds left, then could not advance the ball after a late defensive stop. Analysts on both broadcasts questioned the clock management.",
+      "ruleAtIssue": "",
+      "leagueResponse": "unknown",
+      "leagueResponseNote": "",
+      "sourceStrength": "multiple-reporters",
+      "heat": 2,
+      "sources": [{ "url": "https://example.com/analyst-c/timeouts", "label": "Sample Analyst C" }]
+    },
+    {
+      "league": "NCAAF",
+      "type": "officiating",
+      "headline": "Targeting ejection overturned after 12-minute review, then reinstated",
+      "whatHappened": "A targeting call was overturned in the booth, then the conference office ruled the original call should have stood. The sequence left the player on the sideline for the final quarter either way.",
+      "ruleAtIssue": "Targeting requires forcible contact to the head or neck area with an indicator such as launching or leading with the crown of the helmet.",
+      "leagueResponse": "statement",
+      "leagueResponseNote": "The conference acknowledged a procedural error in communication between the booth and the field.",
+      "sourceStrength": "official",
+      "heat": 2,
+      "sources": [{ "url": "https://example.com/conference-statement-sample", "label": "Conference statement (sample)" }]
+    },
+    {
+      "league": "MLB",
+      "type": "officiating",
+      "headline": "Fans claim strike zone was rigged in Game 3",
+      "whatHappened": "A single anonymous account posted a strike-zone graphic claiming the game was fixed. No reporter or data outlet backed it.",
+      "sourceStrength": "viral-only",
+      "heat": 3,
+      "sources": [{ "url": "https://x.com/anon/status/1000000000000000002", "label": "Anonymous account" }]
+    },
+    {
+      "league": "MLB",
+      "type": "replay-tech",
+      "headline": "Challenge window rule confuses both dugouts on a ninth-inning tag play",
+      "whatHappened": "Both managers said afterward they were unsure whether the challenge window had closed. The crew allowed the challenge, and the call was confirmed.",
+      "ruleAtIssue": "Managers have a set time after a play ends to signal a replay challenge.",
+      "leagueResponse": "none-yet",
+      "leagueResponseNote": "",
+      "sourceStrength": "multiple-reporters",
+      "heat": 1,
+      "sources": []
+    }
+  ]
+}

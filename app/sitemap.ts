@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next"
 
 import { getAllJournalEntries } from "@/lib/content/journal"
+import { getAllDockets } from "@/lib/docket"
 import { SITE_URL } from "@/lib/json-ld"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/journal",
+    "/docket",
     "/unwhistled",
     "/watch",
     "/membership",
@@ -26,5 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: e.updatedAt ?? e.publishedAt,
   }))
 
-  return [...staticRoutes, ...journalRoutes]
+  const docketRoutes = getAllDockets()
+    .filter((d) => !d.sample)
+    .map((d) => ({
+      url: `${SITE_URL}/docket/${d.date}`,
+      lastModified: new Date(d.generatedAt),
+    }))
+
+  return [...staticRoutes, ...journalRoutes, ...docketRoutes]
 }
