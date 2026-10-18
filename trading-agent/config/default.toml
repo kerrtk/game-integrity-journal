@@ -1,0 +1,60 @@
+# tradeagent configuration.
+# Every number marked [ASSUMPTION] is an estimate you must verify against your own
+# account before trusting any backtest. Wrong costs are the #1 way backtests lie.
+
+mode = "paper"                 # "paper" | "live". Live also needs the env var + an approved manifest.
+
+[venue]
+exchange = "kraken"            # any ccxt exchange id; kraken/coinbase are US-accessible spot venues
+symbol = "BTC/USD"
+timeframe = "1d"               # bar size the strategies were researched on
+quote_currency = "USD"
+
+[costs]
+# [ASSUMPTION] Kraken Pro lowest-volume tier, taker. Verify at kraken.com/features/fee-schedule.
+fee_rate = 0.0040              # per side, fraction of notional
+slippage_rate = 0.0005         # [ASSUMPTION] market order slippage on BTC/USD for small size
+half_spread_rate = 0.0001      # [ASSUMPTION] half the typical bid/ask spread
+
+[validation]
+holdout_fraction = 0.30        # last 30% of history is untouched until the final evaluation
+embargo_bars = 10              # gap between train and holdout so indicators can't straddle the split
+min_holdout_trades = 30        # fewer trades than this = statistically meaningless -> no deploy
+dsr_threshold = 0.95           # Deflated Sharpe probability required to pass
+cost_stress_multiplier = 2.0   # strategy must still have Sharpe > 0 at 2x costs
+min_neighbor_positive = 0.70   # >=70% of neighbouring parameter sets must have Sharpe > 0 in train
+walk_forward_folds = 5
+mc_paths = 2000                # block-bootstrap paths for drawdown distribution
+mc_block = 20
+
+[regime]
+vol_lookback = 30
+vol_stay_out_pct = 0.95        # flat when realized vol is above its own (expanding) 95th percentile
+trend_lookback = 200
+
+[sizing]
+method = "vol_target"          # "vol_target" (default) with fractional-Kelly cap
+target_annual_vol = 0.20       # aim for 20% annualised portfolio vol
+kelly_fraction = 0.25          # quarter Kelly. Hard-capped at 0.5 in code; full Kelly is refused.
+max_position_weight = 1.0      # spot, long-only, no leverage
+
+[risk]
+max_position_notional = 1000.0 # absolute cap per position in quote currency
+max_daily_loss_pct = 0.03      # halt for the rest of the UTC day after -3%
+max_drawdown_pct = 0.15        # halt (sticky, manual reset) after -15% from equity peak
+stale_data_bars = 2            # newest closed bar must be at most 2 bars old
+max_api_errors = 5             # within the window below -> halt
+api_error_window_sec = 900
+max_orders_per_day = 6
+max_price_deviation = 0.05     # reject orders if quote is >5% from last close (bad tick / fat finger)
+auto_flatten_on_halt = true    # risk-REDUCING exits only; never opens risk without approval
+
+[live]
+capital_cap = 100.0            # start at the smallest size. Live equity used by the agent is capped here.
+require_approval_for_entries = true   # every risk-increasing order needs `tradeagent approve-order`
+approval_timeout_sec = 3600
+
+[engine]
+poll_seconds = 60
+state_dir = "state"
+log_file = "state/decisions.jsonl"

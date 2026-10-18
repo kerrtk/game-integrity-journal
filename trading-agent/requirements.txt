@@ -1,0 +1,4 @@
+numpy>=2.0
+pandas>=2.2
+ccxt>=4.3        # exchange connectivity (data fetch, paper feed, live)
+pytest>=8        # test suite

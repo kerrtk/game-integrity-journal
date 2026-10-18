@@ -1,0 +1,18 @@
+# systemd unit: keeps the PAPER engine running 24/7 and restarts it if it crashes.
+# Install: copy to /etc/systemd/system/, edit paths/user, then
+#   sudo systemctl daemon-reload && sudo systemctl enable --now tradeagent-paper
+[Unit]
+Description=tradeagent paper trading engine
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=trader
+WorkingDirectory=/opt/trading-agent
+ExecStart=/usr/bin/python3 -m tradeagent paper --manifest deployments/STRATEGY.json
+Restart=always
+RestartSec=30
+# State (halts, positions, approvals) lives in state/ and survives restarts.
+
+[Install]
+WantedBy=multi-user.target
